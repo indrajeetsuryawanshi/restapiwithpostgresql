@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 //we need to extends jparepository for using jpa repository
 //repository have two params 1)entity and 2)datatype of primary key
 public interface  PersonRepository extends JpaRepository<Personentity,Long> {
+    Personentity findByMobileNumber(String mobileNumber);
+
 }
+

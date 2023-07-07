@@ -1,40 +1,51 @@
 package com.crudpostgresql.postgresql.controller;
 
+import com.crudpostgresql.postgresql.dto.Loginrequest;
 import com.crudpostgresql.postgresql.entity.Personentity;
 import com.crudpostgresql.postgresql.service.Personservice;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.PropertyPermission;
+
 
 @RestController
 //using requestmapping to map web request
-@RequestMapping("/person")
+@RequestMapping("/nexus/v1/user")
 public class PersonController {
     private final Personservice personservice;
     public PersonController(Personservice personservice){
         this.personservice=personservice;
+    }//this is constructor base
+//    injection
+
+    @PostMapping("/signup")
+//    public String savePerson(@ModelAttribute Personentity personentity){
+//        System.out.println("kmdkdk");
+//    }
+
+    public ResponseEntity<HttpStatus> savePerson(@RequestBody Personentity personentity){
+        try{
+this.personservice.savePerson(personentity);
+return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+//
     }
-    @GetMapping
-    public List<Personentity> findAllPerson(){
-      return  this.personservice.findAllPerson();
-    }
-    @GetMapping("/{id}")
-    public Optional<Personentity> findById(@PathVariable("id") Long id){
-        return personservice.findById(id);
-    }
-    @PostMapping
-    public Personentity savePerson(@RequestBody Personentity personentity){
-        return personservice.savePerson(personentity);
-    }
-    @PutMapping
-    public Personentity updatePerson(@RequestBody Personentity personentity){
-        return personservice.updatePerson(personentity);
-    }
-    @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable("id") Long id){
-        personservice.deletePerson(id);
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Loginrequest loginRequest) {
+        Personentity user = personservice.getUserByMobileNumber(loginRequest.getMobileNumber());
+
+        // Validate the password
+        if (!user.getMobileNumber().equals(loginRequest.getMobileNumber())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+
+        // Perform any additional authentication or authorization logic here
+
+        return ResponseEntity.ok("Login successful");
     }
 
 }

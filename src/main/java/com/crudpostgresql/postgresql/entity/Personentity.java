@@ -1,69 +1,61 @@
 package com.crudpostgresql.postgresql.entity;
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.Optional;
+
 @Entity //when we use @entity annotation , we need to set primary id to one filled in table
-@Table(name="mt_person")
-//@NoArgsConstructor
-//public class Cliente{
-//
-//}
+@Table(name="userData",uniqueConstraints = @UniqueConstraint(columnNames="mobileNumber"))
+
 public class Personentity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ps_id")
     private Long id;
-    @Column(name ="ps_name")
-    private String name;
-    @Column(name="ps_gender")
-    private String gender;
-    @Column(name="ps_dob")
-    private Date dob;
-    @Column(name="ps_address")
-    private String address;
+    @Column(name ="firstName")
+    private String firstName;
+    @Column(name="lastName")
+    private String lastName;
+    @Column(name="mobileNumber")
+    private String mobileNumber;
 
-    public Personentity(Long id,String name,String gender,Date dob,String address ){
+    public Personentity(String firstName, String lastName, String mobileNumber ){
 this.id=id;
-this.name=name;
-this.gender=gender;
-this.dob=dob;
-this.address=address;
+this.firstName=firstName;
+
+this.lastName=lastName;
+this.mobileNumber=mobileNumber;
+
     }
     public Personentity(){
 
     }
+
+
+
     public Long getId(){
         return id;
     }
     public void setId(Long id){
         this.id=id;
     }
-    public String getName(){
-        return name;
+    public String getFirstName(){
+        return firstName;
     }
-    public void setName(String name){
-        this.name=name;
+    public void setFirstName(String firstName){
+        this.firstName=firstName;
 
     }
-    public String getGender(){
-        return gender;
+    public String getLastName(){
+        return lastName;
     }
-    public void setGender(String gender){
-        this.gender=gender;
-    }
-    public Date getDob(){
-        return dob;
+    public void setLastName(String lastName){
+        this.lastName=lastName;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public String getMobileNumber(){
+        return mobileNumber;
     }
-    public String getAddress(){
-        return address;
-    }
-    public void setAddress(String address){
-        this.address=address;
+    public void setMobileNumber(String mobileNumber){
+        this.mobileNumber=mobileNumber;
 
     }
 
