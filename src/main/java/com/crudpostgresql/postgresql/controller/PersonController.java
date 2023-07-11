@@ -3,7 +3,6 @@ package com.crudpostgresql.postgresql.controller;
 import com.crudpostgresql.postgresql.dto.Loginrequest;
 import com.crudpostgresql.postgresql.entity.Personentity;
 import com.crudpostgresql.postgresql.service.Personservice;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +24,15 @@ public class PersonController {
 //        System.out.println("kmdkdk");
 //    }
 
-    public ResponseEntity<HttpStatus> savePerson(@RequestBody Personentity personentity){
+    public ResponseEntity<Personentity> savePerson(@RequestBody Personentity personentity){
         try{
-this.personservice.savePerson(personentity);
-return new ResponseEntity<>(HttpStatus.OK);
+        Personentity person=this.personservice.savePerson(personentity);
+
+        return ResponseEntity.status(HttpStatus.OK).body(person);
+
         }catch (Exception e){
-return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 //
     }

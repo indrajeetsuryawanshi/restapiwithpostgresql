@@ -1,6 +1,7 @@
 package com.crudpostgresql.postgresql.service.impl;
 
 import com.crudpostgresql.postgresql.entity.Personentity;
+import com.crudpostgresql.postgresql.exceptions.EtAuthException;
 import com.crudpostgresql.postgresql.repository.PersonRepository;
 import com.crudpostgresql.postgresql.service.Personservice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,13 @@ public class PersonServiceimp implements Personservice {
     }
     @Override
     public Personentity savePerson(Personentity personentity){
+
         return personRepository.save(personentity);
     }
     @Override
-    public Personentity getUserByMobileNumber(String mobileNumber) {
-        return personRepository.findByMobileNumber(mobileNumber);
-//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public Personentity getUserByMobileNumber(String mobileNumber) throws EtAuthException {
+    return  personRepository.findByMobileNumber(mobileNumber);
+//        .throw new  EtAuthException("User not found");
     }
 
 }

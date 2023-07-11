@@ -2,6 +2,7 @@ package com.crudpostgresql.postgresql.dto;
 
 public class Loginrequest {
      private String mobileNumber;
+     
      public Loginrequest(String mobileNumber){
          this.mobileNumber=mobileNumber;
      }
@@ -10,6 +11,7 @@ public class Loginrequest {
      }
 
      public Loginrequest(){
+
 
      }
      public void setMobileNumber(String mobileNumber){
