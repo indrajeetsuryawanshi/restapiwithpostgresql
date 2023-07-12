@@ -17,7 +17,7 @@ public class Personentity {
     @Column(name="mobileNumber")
     private String mobileNumber;
 
-    public Personentity(String firstName, String lastName, String mobileNumber ){
+    public Personentity( Long id,String firstName, String lastName, String mobileNumber ){
 this.id=id;
 this.firstName=firstName;
 
